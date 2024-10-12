@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="MultiverseTerminalSystem.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/miaotouy/mty_css_style@main/MultiverseTerminalSystem.css"> -->
+</head>
+<div class="container">
+  <nav class="left-nav">
+    <div class="section active" data-content="content0">剧情正文</div>
+    <div class="section" data-content="content1">主控制台</div>
+    <div class="section" data-content="content2">状态窗口</div>
+    <div class="section" data-content="content3">世界列表</div>
+    <div class="section" data-content="content4">任务系统</div>
+    <div class="section" data-content="content5">背包/技能</div>
+    <div class="section" data-content="content6">地图</div>
+  </nav>
+  <div id="right-content">
+    <div id="content0" class="content-div active">
+      <div class="story-content">
+        <p>这里将显示当前的剧情内容。随着故事的进展，这个区域会不断更新，展示最新的剧情发展。</p>
+        <p>比如：</p>
+        <p>你睁开眼睛，发现自己身处一个陌生的房间。四周的墙壁上闪烁着奇异的光芒，仿佛在诉说着某种神秘的信息。突然，一个全息投影的窗口出现在你面前，上面显示着<span style="color: #8b41f2;">"万界终端系统"</span>几个大字。</p>
+        <p>一个慵懒的声音在你耳边响起：<span style="color: #57b0e4;">"欢迎，新的穿越者。"</span></p>
+        <p>记得给引号内容添加颜色样式</p>
+      </div>
+    </div>
+    <div id="content1" class="content-div">
+      <div class="terminal"><pre>***** 万界终端系统 *****
+欢迎使用万界终端系统，请输入指令：
+> help     (查看帮助)
+> worlds   (查看世界列表)
+> jump     (开始穿越)
+> status   (查看状态)
+> task     (查看当前任务)
+欢迎新的穿越者！
+<span class="prompt">> </span><span class="cursor">|</span></pre></div>
+    </div>
+    <div id="content2" class="content-div">
+      <div class="terminal"><pre>当前世界： 未选择
+经过时间： --:--:--
+个人属性：[根据世界适配属性条目]
+可用积分： 0
+背包空间： 0/20
+当前任务： 无</pre></div>
+    </div>
+    <div id="content3" class="content-div">
+      <div class="terminal"><pre>编号--世界名称--难度--介绍
+------------------------
+1. 孤独摇滚 - ★★★★ - 介绍:  讲述极度怕生的少女后藤ひとり，为了克服人际交往的障碍，而加入乐队“结束乐队”担任吉他手，并在其中慢慢成长的青春物语。充满了对社恐的细腻刻画和对摇滚音乐的热爱。
+2. 命运石之门 - ★★★★★ - 介绍:  以秋叶原为舞台，讲述一群年轻人偶然发明了可以向过去发送邮件的“时间机器”，从而引发一系列蝴蝶效应，改变命运的故事。充满悬疑、科幻和伦理探讨的烧脑神作。
+3. 魔法禁书目录 - ★★★★★ - 介绍:  在一个科学与魔法并存的世界，拥有抹消一切异能之力的少年上条当麻，与掌握10万3000本魔法书的少女茵蒂克丝相遇，卷入各种魔法与科学的纷争。设定庞大复杂，战斗场面精彩。
+4. 异世界舅舅 - ★★★ - 介绍:  昏迷17年后苏醒的舅舅，自称在异世界度过了冒险之旅。他向外甥讲述自己在异世界的奇遇，并用习得的魔法在现实生活中闹出不少笑话。轻松搞笑的异世界题材作品。
+5. jojo的奇妙冒险 - ★★★★★ - 介绍:  横跨百年，讲述乔斯达家族与宿敌迪奥及其后代之间，命运纠缠的战斗故事。充满热血、冒险和家族传承，以独特的画风和替身设定著称。
+6. 白箱 - ★★★ - 介绍:  以动画制作现场为舞台，讲述五位怀揣梦想的女孩，在动画业界奋斗的青春故事。真实展现了动画制作的流程和幕后故事，充满励志和感动。
+7. 魔法少女小圆 - ★★★★ - 介绍:  看似普通的魔法少女题材，却以黑暗致郁的剧情和深刻的哲学思考而闻名。少女们为了实现愿望而签订契约，却要面对残酷的命运和真相。
+8. 别当欧尼酱了 - ★★ - 介绍:  沉迷于工口游戏的家里蹲哥哥，某天醒来发现自己变成了妹妹。他不得不适应新的身份，并与妹妹的朋友们展开新的生活。轻松搞笑的性转题材作品。
+9. 夏日重现 - ★★★★ - 介绍:  回到家乡参加青梅竹马葬礼的少年，却发现岛上隐藏着神秘的“影子病”，并卷入一场关乎生死轮回的战斗。悬疑烧脑，充满反转和惊悚元素。
+10. 电锯人 - ★★★★ - 介绍:  背负巨额债务的少年电次，与恶魔啵奇塔签订契约，化身电锯人猎杀恶魔。充满血腥暴力和黑色幽默，战斗场面极具视觉冲击力。
+------------------------
+ 当前页面 [1/514]
+（使用 'wp <页数>' 命令查看对应页面）
+<span class="prompt">> </span><span class="cursor">|</span></pre></div>
+    </div>
+    <div id="content4" class="content-div">
+      <div class="terminal"><pre>===== 任务系统 =====
+当前任务：
+无进行中的任务
+已完成任务：
+无已完成任务</pre></div>
+    </div>
+    <div id="content5" class="content-div">
+      <div class="terminal"><pre>===== 背包/技能 =====
+背包物品：
+背包为空
+已习得技能：
+暂无技能</pre></div>
+    </div>
+    <div id="content6" class="content-div">
+      <div class="terminal"><pre>===== 地图 =====
+当前未在任何世界中，无法显示地图。</pre></div>
+    </div>
+  </div>
+</div>
+<script>
+    function showContent(divId) {
+      document.querySelectorAll('.content-div').forEach(div => div.classList.remove('active'));
+      document.getElementById(divId).classList.add('active');
+      
+      document.querySelectorAll('.left-nav .section').forEach(section => section.classList.remove('active'));
+      document.querySelector(`.left-nav .section[data-content="${divId}"]`).classList.add('active');
+    }
+    
+    function updateLayout() {
+      const container = document.querySelector('.container');
+      container.setAttribute('data-theme', event.data.theme === 'light' ? 'light' : '');
+      container.classList.toggle('narrow', window.innerWidth <= 768);
+    }
+    
+    document.querySelector('.left-nav').addEventListener('click', (event) => {
+      if (event.target.classList.contains('section')) {
+        showContent(event.target.getAttribute('data-content'));
+      }
+    });
+    
+    window.addEventListener('message', event => {
+      if (event.data.type === 'themeChange') {
+        updateLayout();
+      }
+    });
+    
+    window.addEventListener('load', updateLayout);
+    window.addEventListener('resize', updateLayout);
+</script>
+</body>
+</html>
+

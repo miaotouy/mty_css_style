@@ -140,5 +140,6 @@
     margin-left: 0;
     margin-top: 10px;
     overflow-y: auto;
+    height: 600px;
   }
 }
