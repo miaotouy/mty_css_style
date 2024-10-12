@@ -19,7 +19,7 @@
       <div class="story-content">
         <p>这里将显示当前的剧情内容。随着故事的进展，这个区域会不断更新，展示最新的剧情发展。</p>
         <p>比如：</p>
-        <p>你睁开眼睛，发现自己身处一个陌生的房间。四周的墙壁上闪烁着奇异的光芒，仿佛在诉说着某种神秘的信息。突然，一个全息投影的窗口出现在你面前，上面显示着<span style="color: #8b41f2;">"万界终端系统"</span>几个大字。</p>
+        <p>你睁开眼睛，发现自己身处一个陌生的房间。四周的墙壁上闪烁着奇异的光芒，仿佛在诉说着某种神秘的信息。突然，一个全息投影的窗口出现在你面前，上面显示着<span style="color: #f368f6;">"万界终端系统"</span>几个大字。</p>
         <p>一个慵懒的声音在你耳边响起：<span style="color: #57b0e4;">"欢迎，新的穿越者。"</span></p>
         <p>记得给引号内容添加颜色样式</p>
       </div>
@@ -81,36 +81,7 @@
     </div>
   </div>
 </div>
-<script>
-    function showContent(divId) {
-      document.querySelectorAll('.content-div').forEach(div => div.classList.remove('active'));
-      document.getElementById(divId).classList.add('active');
-      
-      document.querySelectorAll('.left-nav .section').forEach(section => section.classList.remove('active'));
-      document.querySelector(`.left-nav .section[data-content="${divId}"]`).classList.add('active');
-    }
-    
-    function updateLayout() {
-      const container = document.querySelector('.container');
-      container.setAttribute('data-theme', event.data.theme === 'light' ? 'light' : '');
-      container.classList.toggle('narrow', window.innerWidth <= 768);
-    }
-    
-    document.querySelector('.left-nav').addEventListener('click', (event) => {
-      if (event.target.classList.contains('section')) {
-        showContent(event.target.getAttribute('data-content'));
-      }
-    });
-    
-    window.addEventListener('message', event => {
-      if (event.data.type === 'themeChange') {
-        updateLayout();
-      }
-    });
-    
-    window.addEventListener('load', updateLayout);
-    window.addEventListener('resize', updateLayout);
-</script>
+<script src="MultiverseTerminalSystem.js"></script>
 </body>
 </html>
 
