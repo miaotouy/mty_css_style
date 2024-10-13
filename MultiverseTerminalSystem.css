@@ -1,10 +1,11 @@
 .container {
-  --bg-color: rgba(2, 40, 77, 0.15);
+  --bg-color: rgba(2, 49, 93, 0.25);
   --text-color: #f0f0f0;
   --border-color: rgba(7, 65, 115, 0.5);
   --nav-border-color: rgba(24, 97, 186, 0.5);
   --active-nav-bg: rgba(3, 76, 166, 0.36);
   --terminal-bg: rgba(36, 36, 36, 0.15);
+  --text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 .container[data-theme="light"] {
   --bg-color: rgba(240, 240, 255, 0.7);
@@ -13,6 +14,19 @@
   --nav-border-color: rgba(170, 170, 170, 0.5);
   --active-nav-bg: rgba(208, 208, 208, 0.7);
   --terminal-bg: rgba(220, 220, 220, 0.4);
+  --text-shadow: 1px 1px 2px rgba(236, 236, 236, 0.3);
+}
+.narration q {
+  color: #6eecc4; 
+  text-shadow: 0 0 5px #59e4e082; 
+}
+.character1 q {
+  color: #78cbff; 
+  text-shadow: 0 0 5px #5cb5f98e; 
+}
+.character2 q {
+  color: #f781c4; 
+  text-shadow: 0 0 5px #f87ec376; 
 }
 .container {
   display: flex;
@@ -49,6 +63,7 @@
   border-radius: 5px;
   transition: background-color 0.3s;
   font-size: 16px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 .left-nav .section:hover {
   background-color: var(--active-nav-bg);
@@ -60,6 +75,7 @@
 #right-content {
   flex-grow: 1;
   padding: 20px;
+  padding-right: 5px;
   width: auto;
   overflow-y: auto;
   background-color: var(--terminal-bg);
@@ -85,7 +101,9 @@
   height: 100%;
   font-family: "Courier New", Courier, monospace;
   font-size: 16px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
   line-height: 1.4;
+  padding-right: 15px;
 }
 .prompt {
   color: #4caf50;
@@ -102,8 +120,10 @@
   line-height: 1.6;
   text-align: justify;
   font-size: 18px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   height: 96%;
   overflow-y: auto;
+  padding-right: 15px;
 }
 @media (max-width: 768px) {
   .container {
