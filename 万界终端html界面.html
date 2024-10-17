@@ -2,7 +2,6 @@
 <html>
 <head>
   <link rel="stylesheet" href="MultiverseTerminalSystem.css">
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/miaotouy/mty_css_style@main/MultiverseTerminalSystem.css"> -->
 </head>
 <div class="container">
   <nav class="left-nav">
@@ -13,8 +12,14 @@
     <div class="section" data-content="content4">任务系统</div>
     <div class="section" data-content="content5">背包/技能</div>
     <div class="section" data-content="content6">地图</div>
-  </nav>
+    <div class="section" data-content="content-cot">CoT</div>
+  </nav><!--  酒馆中用<nav-content src="LeftNavigation.html"></nav-content> -->
   <div id="right-content">
+    <div id="content-cot" class="content-div"><!-- 这里不能改class="content-div"  -->
+      <div class="story-content">
+        <p>model在此处遵循<cot>内容进行正文情节的 Chain of Thought (CoT) 推理，步骤不超过15步。</p>
+      </div>
+    </div>
     <div id="content0" class="content-div active">
       <div class="story-content">
         <p>这里将显示当前的剧情内容。随着故事的进展，这个区域会不断更新，展示最新的剧情发展。</p>
