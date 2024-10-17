@@ -22,7 +22,7 @@
 }
 .character1 q {
   color: #78cbff; 
-  text-shadow: 0 0 5px #5cb5f98e; 
+  text-shadow: 0 0 5px #4babf48e; 
 }
 .character2 q {
   color: #f781c4; 
@@ -104,6 +104,22 @@
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
   line-height: 1.4;
   padding-right: 15px;
+}
+.inline-terminal {
+  font-family: "Courier New", Courier, monospace;
+  background-color: rgba(2, 13, 43, 0.1); 
+  padding: 5px;
+  border-radius: 3px;
+  font-size: 16px;
+  color: #4caf50;
+  overflow-x: auto;
+  display: block;
+}
+.inline-terminal pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: inherit;
 }
 .prompt {
   color: #4caf50;
