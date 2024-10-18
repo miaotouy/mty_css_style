@@ -141,6 +141,104 @@
   overflow-y: auto;
   padding-right: 15px;
 }
+
+/* Markdown 样式 */
+.story-content h1, 
+.story-content h2, 
+.story-content h3, 
+.story-content h4, 
+.story-content h5, 
+.story-content h6 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+.story-content h1 {
+  font-size: 2em;
+}
+
+.story-content h2 {
+  font-size: 1.75em;
+}
+
+.story-content h3 {
+  font-size: 1.5em;
+}
+
+.story-content h4 {
+  font-size: 1.25em;
+}
+
+.story-content h5 {
+  font-size: 1.1em;
+}
+
+.story-content h6 {
+  font-size: 1em;
+}
+
+.story-content p {
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+}
+
+.story-content strong {
+  font-weight: bold;
+}
+
+.story-content em {
+  font-style: italic;
+}
+
+.story-content a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.story-content a:hover {
+  text-decoration: underline;
+}
+
+.story-content ul, 
+.story-content ol {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding-left: 2em;
+}
+
+.story-content blockquote {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding-left: 1em;
+  border-left: 4px solid #ccc;
+}
+
+.story-content code {
+  font-family: "Courier New", Courier, monospace;
+  background-color: #f8f8f8;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+}
+
+.story-content pre {
+  font-family: "Courier New", Courier, monospace;
+  background-color: #f8f8f8;
+  padding: 1em;
+  border-radius: 3px;
+  overflow-x: auto;
+}
+
+.story-content pre code {
+  padding: 0;
+  background-color: transparent;
+  border-radius: 0;
+}
+.story-content p {
+  margin: 0; 
+}
+/* Markdown 样式结尾 */
+
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
