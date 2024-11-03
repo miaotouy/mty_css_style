@@ -1,5 +1,14 @@
-// 检查 LLM 输出区域是否为空，如果为空则加载测试数据
-window.addEventListener('load', () => {
+// 预设主题列表
+const presetThemes = {
+    '科技风': 'tech-style',
+    '魔幻风': 'magic-style',
+    '现代简约': 'modern-style',
+    // ... 其他预设主题 ...
+  };
+  // 默认主题
+  const defaultTheme = 'default-style';
+  // 检查 LLM 输出区域是否为空，如果为空则加载测试数据
+  window.addEventListener('load', () => {
     const llmOutput = document.getElementById('llm-output');
     if (llmOutput.innerHTML.trim() === '') {
       // 延迟 2 秒后检查是否加载了测试数据
@@ -58,8 +67,12 @@ window.addEventListener('load', () => {
   const config = { childList: true, subtree: true };
   // 开始监听
   observer.observe(llmOutput, config);
-  // 全局变量，用于存储已获得的成就
+  // 全局变量，用于存储已获得的成就与当前页码信息
   let achievements = [];
+  let currentPage = {
+    'worlds-window': 1,
+    'shop-window': 1,
+  };
   // 更新 UI 界面
   function updateUi(content) {
     // 更新标题
@@ -100,47 +113,106 @@ window.addEventListener('load', () => {
       });
     }
     // 更新成就
-    const achievementMatch = content.match(/\[成就 \| 成就展示区 \| open \| .*?\]([\s\S]*?)\[\/成就\]/);
+    const achievementMatch = content.match(/<achievements type="generic">\[(.*?) \| (.*?) \| (open|closed) \| (.*?)\]([\s\S]*?)<\/achievements>/);
     if (achievementMatch) {
-      const achievementContent = achievementMatch[1];
+      const title = achievementMatch[1];
+      const id = achievementMatch[2];
+      const state = achievementMatch[3];
+      const style = achievementMatch[4];
+      const achievementContent = achievementMatch[5];
       const newAchievements = achievementContent.match(/\[lv\d+\|.*?\|.*?\]/g) || [];
       updateAchievements(newAchievements);
+      updateGenericWindow(id + '-window', title, state, style, achievementContent);
     }
     // 更新窗口
     const winMatch = content.match(/<win>([\s\S]*?)<\/win>/);
     if (winMatch) {
       const winContent = winMatch[1];
-      // TODO: 解析窗口信息并更新 UI
-      console.log('更新窗口:', winContent);
+      const windowMatches = winContent.match(/<(.*?) type="(.*?)">\[(.*?) \| (.*?) \| (open|closed) \| (.*?)\]([\s\S]*?)<\/\1>/g);
+      if (windowMatches) {
+        windowMatches.forEach(windowMatch => {
+          const [_, windowTag, windowType, title, id, state, style, windowContent] = windowMatch.match(/<(.*?) type="(.*?)">\[(.*?) \| (.*?) \| (open|closed) \| (.*?)\]([\s\S]*?)<\/\1>/);
+          switch (windowType) {
+            case 'generic':
+              updateGenericWindow(id + '-window', title, state, style, windowContent);
+              break;
+            case 'list':
+              updateListWindow(id + '-window', title, state, style, windowContent);
+              break;
+            default:
+              console.warn(`未知窗口类型：${windowType}`);
+          }
+        });
+      }
     }
     // 更新地图
     const mapMatch = content.match(/<map>([\s\S]*?)<\/map>/);
     if (mapMatch) {
       const mapContent = mapMatch[1];
-      // TODO: 解析地图信息并更新 UI
-      console.log('更新地图:', mapContent);
+      const map = parseMap(mapContent);
+      const mapElement = renderMap(map);
+      updateGenericWindow('map-window', '地图', 'open', map.style, mapElement.outerHTML);
     }
-    // 更新技能
-    const skillsMatch = content.match(/<skills>([\s\S]*?)<\/skills>/);
-    if (skillsMatch) {
-      const skillsContent = skillsMatch[1];
-      // TODO: 解析技能信息并更新 UI
-      console.log('更新技能:', skillsContent);
+  }
+  // 更新通用窗口
+  function updateGenericWindow(windowId, title, state, style, content) {
+    let windowElement = document.getElementById(windowId);
+    if (!windowElement) {
+      windowElement = createWindow(windowId, title);
     }
-    // 更新世界列表
-    const worldsMatch = content.match(/<worlds>([\s\S]*?)<\/worlds>/);
-    if (worldsMatch) {
-      const worldsContent = worldsMatch[1];
-      // TODO: 解析世界列表信息并更新 UI
-      console.log('更新世界列表:', worldsContent);
+    // 更新窗口内容
+    windowElement.querySelector('.window-content').innerHTML = content;
+    // 应用窗口状态
+    if (state === 'open') {
+      windowElement.style.display = 'block';
+    } else if (state === 'closed') {
+      windowElement.style.display = 'none';
+    } else if (state === 'disabled') {
+      windowElement.style.display = 'none';
+      // TODO: 添加禁用样式
     }
-    // 更新商店
-    const shopMatch = content.match(/<shop>([\s\S]*?)<\/shop>/);
-    if (shopMatch) {
-      const shopContent = shopMatch[1];
-      // TODO: 解析商店信息并更新 UI
-      console.log('更新商店:', shopContent);
+    // 应用窗口主题
+    applyWindowTheme(windowElement, style);
+  }
+  // 更新列表窗口（世界列表、商店、背包）
+  function updateListWindow(windowId, title, state, style, content) {
+    // 解析列表内容
+    const [header, ...items] = content.trim().split('\n');
+    const [_, _, _, _, page] = header.match(/\[(.*?) \| (.*?) \| (.*?) \| (.*?) \| p(\d+)\]/);
+    // 创建窗口（如果不存在）
+    let windowElement = document.getElementById(windowId);
+    if (!windowElement) {
+      windowElement = createWindow(windowId, title);
     }
+    // 更新窗口内容
+    const contentElement = windowElement.querySelector('.window-content');
+    contentElement.innerHTML = '';
+    const listElement = document.createElement('ul');
+    items.forEach(item => {
+      const [index, ...rest] = item.slice(1, -1).split('|');
+      const listItem = document.createElement('li');
+      listItem.textContent = rest.join(' | ');
+      listItem.addEventListener('click', () => {
+        if (windowId === 'worlds-window') {
+          // TODO: 处理世界跳转逻辑
+          console.log('跳转到世界:', index);
+        } else if (windowId === 'shop-window') {
+          // TODO: 处理购买逻辑
+          console.log('购买商品:', index);
+        } else if (windowId === 'inventory-window') {
+          // TODO: 处理使用物品逻辑
+          console.log('使用物品:', index);
+        }
+      });
+      listElement.appendChild(listItem);
+    });
+    contentElement.appendChild(listElement);
+    // 应用窗口状态
+    // ... (代码与 updateGenericWindow 相同) ...
+    // 应用窗口主题
+    // ... (代码与 updateGenericWindow 相同) ...
+    // 处理分页
+    // TODO: 实现分页逻辑
   }
   // 更新成就列表
   function updateAchievements(newAchievements) {
@@ -173,6 +245,47 @@ window.addEventListener('load', () => {
         achievementPanel.appendChild(achievementElement);
       });
     }
+  }
+  // 解析地图数据
+  function parseMap(mapContent) {
+    const lines = mapContent.split('\n');
+    const [_, style, name, size] = lines[0].match(/\[地图\|(.+?)\|(.+?)\|(.+?)\]/);
+    const [width, height] = size.split('*').map(Number);
+    const locations = lines.slice(1).map(line => {
+      const [_, coords, name, status] = line.match(/\[(.+?)\|(.+?)\|(.+?)\]/);
+      const [x, y] = coords.split(',').map(Number);
+      return { x, y, name, status };
+    });
+    return {
+      style,
+      name,
+      width,
+      height,
+      locations
+    };
+  }
+  // 渲染地图
+  function renderMap(map) {
+    // 创建一个 20*20 的网格
+    const grid = document.createElement('div');
+    grid.style.display = 'grid';
+    grid.style.gridTemplateColumns = `repeat(${map.width}, 1fr)`;
+    grid.style.gridTemplateRows = `repeat(${map.height}, 1fr)`;
+    // 为每个位置创建一个单元格
+    for (let y = 0; y < map.height; y++) {
+      for (let x = 0; x < map.width; x++) {
+        const cell = document.createElement('div');
+        cell.style.border = '1px solid #ccc';
+        cell.style.padding = '5px';
+        const location = map.locations.find(loc => loc.x === x && loc.y === y);
+        if (location) {
+          cell.textContent = location.name;
+          cell.classList.add(location.status);
+        }
+        grid.appendChild(cell);
+      }
+    }
+    return grid;
   }
   // 检查屏幕宽度并应用相应的布局
   function checkScreenWidth() {
@@ -297,8 +410,14 @@ window.addEventListener('load', () => {
   }
   // 页面加载完成后初始化窗口
   window.addEventListener('load', initializeWindows);
-  // TODO: 实现 getSillyTavernMessageContent 函数，获取 SillyTavern 的消息区域内容
   // TODO: 实现 parseSettingsWindowContent 函数，解析设置面板内容
   // TODO: 实现 createSettingsWindow 函数，创建设置面板窗口
   // TODO: 实现 showWindow 函数，显示窗口
+  // TODO: 实现 applyWindowTheme 函数，应用窗口主题样式
+  // TODO: 实现 updateListWindow 函数中的分页逻辑
+  // TODO: 实现世界列表、商店和背包的独特功能，例如跳转世界、购买商品、使用物品等
+  // TODO: 实现地图的渲染和交互逻辑
+  // TODO: 实现工具栏按钮的点击事件
+  // TODO: 实现手机布局的逻辑
+  // TODO: 实现错误处理和调试工具
   
