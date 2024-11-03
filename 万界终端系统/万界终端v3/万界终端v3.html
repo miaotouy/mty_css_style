@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="MultiverseTerminalSystem.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- 标题 -->
+        <h1 id="game-title">万界终端系统</h1>
+        <!-- 隐藏的内容接收区 -->
+        <div id="llm-output" style="display: none;"></div>
+        <!-- 系统状态栏 -->
+        <section id="sys-info"></section>
+        <!-- 主窗口 (用于手机布局) -->
+        <section id="main-window">
+            <!-- 这里放置窗口内容，例如终端、背包等 -->
+            <div class="window" id="terminal-window">
+                <div class="window-header">
+                    <span>系统终端</span>
+                    <button class="close-btn" onclick="toggleWindow('terminal-window')">X</button>
+                </div>
+                <div class="window-content">
+                    <input type="text" id="terminal-input" placeholder="输入指令...">
+                </div>
+            </div>
+            <div class="window" id="inventory-window">
+                <div class="window-header">
+                    <span>背包</span>
+                    <button class="close-btn" onclick="toggleWindow('inventory-window')">X</button>
+                </div>
+                <div class="window-content">
+                    <p>物品列表将在这里显示</p>
+                </div>
+            </div>
+            <!-- ... 其他窗口 ... -->
+        </section>
+        <!-- 窗口管理区 (用于PC布局，拖拽窗口) -->
+        <section id="windows"></section>
+        <!-- 故事情节区 -->
+        <section id="plot-section"></section>
+        <!-- 选择区 -->
+        <section id="choices-section"></section>
+        <!-- 日志区 -->
+        <section id="log-section"></section>
+        <!-- 控制栏 (工具栏)-->
+        <section id="toolbar">
+            <button id="settings-btn" class="toolbar-button">设置</button>
+            <!-- 其他按钮，例如打开终端、背包等 -->
+        </section>
+    </div>
+    <script src="MultiverseTerminalSystem.js"></script>
+</body>
+</html>

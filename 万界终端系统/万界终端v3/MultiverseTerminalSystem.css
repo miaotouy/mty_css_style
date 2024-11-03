@@ -1,0 +1,92 @@
+/* 基本样式 */
+body {
+    font-family: sans-serif;
+    background-color: #111;
+    color: #eee;
+    margin: 0;
+  }
+  #game-container {
+    position: relative; /* 用于定位窗口 */
+    width: 100%;
+    height: 100vh;
+    overflow: hidden; /* 隐藏溢出内容 */
+  }
+  /* 标题 */
+  #game-title {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 1.5em;
+    color: #0f0; /* 假设绿色代表系统正常 */
+  }
+  /* 系统状态栏 */
+  #sys-info {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #0f0;
+    border-radius: 5px;
+  }
+  /* 窗口 */
+  .window {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 1px solid #0f0;
+    border-radius: 5px;
+    min-width: 300px;
+    min-height: 200px;
+    resize: both; /* 允许调整窗口大小 */
+    overflow: hidden; /* 隐藏溢出内容 */
+  }
+  .window-header {
+    padding: 10px;
+    background-color: rgba(0, 0, 255, 0.2); /* 假设蓝色代表窗口标题 */
+    cursor: move; /* 指示可拖动 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .window-content {
+    padding: 10px;
+    height: calc(100% - 40px); /* 窗口内容高度 */
+    overflow-y: auto; /* 允许内容滚动 */
+  }
+  .close-btn {
+    background: none;
+    border: none;
+    color: #eee;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+  /* 工具栏 */
+  #toolbar {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%); /* 居中 */
+    display: flex;
+    gap: 10px;
+  }
+  .toolbar-button {
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #0f0;
+    color: #eee;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  /* 其他区域 */
+  #plot-section,
+  #choices-section,
+  #log-section {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 1px solid #0f0;
+    border-radius: 5px;
+    padding: 10px;
+    overflow-y: auto; /* 允许内容滚动 */
+  }
+  /* ... 其他样式 ... */
+  
