@@ -37,7 +37,40 @@
             <!-- ... 其他窗口 ... -->
         </section>
         <!-- 窗口管理区 (用于PC布局，拖拽窗口) -->
-        <section id="windows"></section>
+        <section id="windows">
+            <div id="window-container">
+                <!-- 默认窗口 -->
+                <div class="window" id="terminal-window" style="display: none;">
+                    <div class="window-header">
+                        <span>系统终端</span>
+                        <button class="close-btn" onclick="toggleWindow('terminal-window')">X</button>
+                    </div>
+                    <div class="window-content">
+                        <input type="text" id="terminal-input" placeholder="输入指令...">
+                    </div>
+                </div>
+                <div class="window" id="inventory-window" style="display: none;">
+                    <div class="window-header">
+                        <span>背包</span>
+                        <button class="close-btn" onclick="toggleWindow('inventory-window')">X</button>
+                    </div>
+                    <div class="window-content">
+                        <p>物品列表将在这里显示</p>
+                    </div>
+                </div>
+                <!-- ... 其他默认窗口 ... -->
+                <div class="window" id="character-window" style="display: none;">
+                    <div class="window-header">
+                        <span>角色状态</span>
+                        <button class="close-btn" onclick="toggleWindow('character-window')">X</button>
+                    </div>
+                    <div class="window-content">
+                        <div class="tabs"></div>
+                        <div class="tab-contents"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <!-- 故事情节区 -->
         <section id="plot-section"></section>
         <!-- 选择区 -->

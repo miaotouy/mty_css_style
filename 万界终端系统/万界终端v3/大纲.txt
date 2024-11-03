@@ -47,7 +47,60 @@
    - **地图渲染 (`renderMap`)**: 渲染地图，并根据位置状态应用不同的样式。
 
 注意事项：
+**页面结构所处位置**
+- 本项目所有内容都是在SillyTavern的消息窗口中内嵌渲染, 因此都是在iframe中运行。
+- 核心内容由LLM驱动，代码负责解析并填充到HTML页面中。
+
 **SillyTavern 负责捕获 LLM 输出**
 - SillyTavern 会使用自带的正则表达式捕获 LLM 的输出内容。
 - 我们不需要使用 Tampermonkey API 或其他方法主动获取消息内容。
-- SillyTavern 会将捕获到的内容插入到我们 HTML 代码中的特定区域，例如 `#llm-output`。
+- SillyTavern 会将捕获到的内容插入到我们 HTML 代码中的特定区域 `#llm-output`。
+
+
+以下是摘抄自隔壁模板的代码，精简并保留必要说明和示例，用于实现点击选项传递内容到 SillyTavern 输入框和页面内发送按钮的功能：
+```javascript
+// --- 点击选项传递内容 ---
+// 假设 choices 是一个包含选项文本的数组
+const choicesContainer = document.getElementById('choices-container'); // 选项容器
+choices.forEach(choice => {
+  const button = document.createElement('button');
+  button.textContent = choice;
+  button.classList.add('choice-button'); // 添加样式类
+  button.addEventListener('click', () => {
+    const stText = document.querySelector('.st-text'); // 获取 SillyTavern 输入框
+    if (stText) {
+      stText.value = choice; // 设置选项内容到输入框
+      // 触发输入框的 input 和 change 事件，通知 SillyTavern 内容已更新
+      stText.dispatchEvent(new Event('input', { bubbles: true }));
+      stText.dispatchEvent(new Event('change', { bubbles: true }));
+    } else {
+      console.error('Cannot find .st-text element');
+    }
+  });
+  choicesContainer.appendChild(button);
+});
+// --- 页面内发送按钮 ---
+const customChoiceContainer = document.getElementById('custom-choice-container'); // 自定义选项容器
+const stSendButton = customChoiceContainer.querySelector('.st-send-button'); // 发送按钮
+stSendButton.addEventListener('click', () => {
+  const stText = customChoiceContainer.querySelector('.st-text'); // 获取 SillyTavern 输入框
+  if (stText) {
+    // 触发输入框的 submit 事件，发送消息
+    stText.form.dispatchEvent(new Event('submit', { bubbles: true }));
+  } else {
+    console.error('Cannot find .st-text element');
+  }
+});
+```
+### 说明
+-  这段代码假设 SillyTavern 的输入框类名为 `.st-text`，发送按钮类名为 `.st-send-button`。
+-  `dispatchEvent` 方法用于手动触发事件。
+-  `bubbles: true` 表示事件会冒泡到父元素。
+### 示例
+-  当用户点击选项按钮时，会将选项内容设置到 SillyTavern 的输入框中，并触发 `input` 和 `change` 事件，通知 SillyTavern 内容已更新。
+-  当用户点击发送按钮时，会触发 SillyTavern 输入框的 `submit` 事件，发送消息给 LLM。
+### 集成到你的项目
+-  将这段代码添加到你的 JavaScript 文件中。
+-  修改选择器，使其与 SillyTavern 的实际 HTML 结构相匹配。
+-  在你的 `updateUi` 函数中，调用 `showChoices()` 函数来显示选择界面。
+-  确保你的 HTML 代码中包含了选项容器和自定义选项容器。

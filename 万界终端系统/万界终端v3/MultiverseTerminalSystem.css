@@ -24,10 +24,77 @@ body {
     position: absolute;
     top: 10px;
     right: 10px;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
-    border: 1px solid #0f0;
+    display: flex;
+    gap: 10px;
+  }
+  .sys-item {
+    border: 1px solid #ccc;
+    padding: 5px;
     border-radius: 5px;
+  }
+  .sys-label {
+    font-weight: bold;
+  }
+  .sys-value {
+    font-weight: bold;
+  }
+  .progress-bar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .progress-bar {
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .progress-bar.safe {
+    background-color: #4CAF50;
+  }
+  .progress-bar.danger {
+    background-color: #f44336;
+  }
+  .progress-bar.high-energy {
+    background-color: #2196F3;
+  }
+  .progress-bar.low-energy {
+    background-color: #9E9E9E;
+  }
+  .progress-bar.neutral {
+    background-color: #9E9E9E;
+  }
+  .progress-bar div {
+    height: 100%;
+    background-color: #2196F3;
+  }
+  .small-progress-bar-container {
+    display: flex;
+    align-items: center;
+  }
+  .small-progress-bar {
+    height: 5px;
+    background-color: #ddd;
+    border-radius: 3px;
+    margin-left: 5px;
+    overflow: hidden;
+  }
+  .small-progress-bar.high-anxiety {
+    background-color: #f44336;
+  }
+  .small-progress-bar.medium-anxiety {
+    background-color: #ff9800;
+  }
+  .small-progress-bar.low-anxiety {
+    background-color: #4caf50;
+  }
+  .small-progress-bar div {
+    height: 100%;
+    background-color: #2196F3;
+  }
+  .multiple-status-container {
+    display: flex;
+    flex-direction: column;
   }
   /* 窗口 */
   .window {
@@ -88,5 +155,72 @@ body {
     padding: 10px;
     overflow-y: auto; /* 允许内容滚动 */
   }
-  /* ... 其他样式 ... */
+  /* 主题样式 (示例) */
+  .tech-style {
+    background-color: #222;
+    color: #0f0;
+  }
+  .magic-style {
+    background-color: #111;
+    color: #f90;
+  }
+  .modern-style {
+    background-color: #333;
+    color: #0ff;
+  }
+  /* 成就样式 */
+  .achievement {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .achievement-lv1 {
+    background-color: #C0C0C0;
+  }
+  .achievement-lv2 {
+    background-color: #FFD700;
+  }
+  .achievement-lv3 {
+    background-color: #E5E4E2;
+  }
+  /* 地图样式 */
+  .current {
+    background-color: #4CAF50;
+    color: white;
+  }
+  .可前往 {
+    background-color: #2196F3;
+    color: white;
+    cursor: pointer;
+  }
+  .锁定 {
+    background-color: #9E9E9E;
+    color: white;
+  }
+  .隐藏 {
+    background-color: #000;
+    color: #000;
+  }
+  /* 标签页样式 */
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+  }
+  .tab {
+    padding: 10px;
+    cursor: pointer;
+  }
+  .tab.active {
+    background-color: #eee;
+  }
+  /* 标签页内容样式 */
+  .tab-contents {
+    padding: 10px;
+  }
+  .tab-content {
+    display: none; /* 默认隐藏所有标签页内容 */
+  }
+  .tab-content.active {
+    display: block;
+  }
   
