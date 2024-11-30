@@ -1,12 +1,11 @@
 // 预设主题列表
 const presetThemes = {
-    '科技风': 'tech-style',
     '魔幻风': 'magic-style',
     '现代简约': 'modern-style',
     // ... 其他预设主题 ...
 };
 // 默认主题
-const defaultTheme = 'default-style';
+const defaultTheme = 'tech-style'; // 将科技风设置为默认主题
 // 检查是否在用户脚本环境中
 const isUserScriptEnvironment = typeof GM_getValue !== 'undefined';
 // 使用适当的存储函数
@@ -36,113 +35,22 @@ window.addEventListener('load', () => {
         loadTestData();
     }
 });
-// 加载本地测试数据（硬编码方式，仅供调试）
+// 加载本地测试数据 (从同一主机加载)
 function loadTestData() {
-    const testData = `
-    <mts>
-    <Current_Style_Selection>[科技风]</Current_Style_Selection>
-    <cot>
-    模型在此思考：
-    1. 分析当前场景和角色状态
-    2. 判断剧本走向，确定接下来发生什么事件
-    3. 更新系统状态，如任务进度或与角色关系变化
-    4. 生成对话和旁白内容，并提供用户选项
-    </cot>
-    <title>[万界终端系统|科技风]</title>
-    <sys>
-    [世界|孤独摇滚][时间|17:30][积分|20][HP|100/100][EP|80/100][状态|社交焦虑:75%|其他状态]
-    </sys>
-    <plot>
-    <Dialog_styles>[对话|剧情对话|open|现代简约]</Dialog styles>
-    [17:30|排练室|伊地知虹夏|平静|"后藤，你今天看起来还好吧？最近都没怎么见你呢。" 她稍微弯下腰，眼神关切地看着后藤ひとり。 "别忘了我们下周还有一次重要排练哦！"|她最后露出了一个微笑]
-    [17:32|排练室|后藤ひとり|紧张|"啊... 对不起，我最近一直在家里练习，所以... 没有出来见大家..." 她低着头，双手紧握，手心冒汗，不敢与伊地知虹夏对视。|她小声嘀咕了一句，希望不会被听到。]
-    [17:33|排练室|伊地知虹夏|高兴|伊地知轻拍后藤ひとり肩膀, 语气温柔而坚定："别担心，我们都会帮你的！"|空气中渐渐弥漫着一种轻松感。]
-    [17:35|排练室|旁白|无|架子鼓反射着昏黄的灯光，乐器安静地躺在一旁，似乎等待着下一次响彻房间的时刻。|房间逐渐陷入一种舒缓的氛围中。]
-    [17:36|排练室|后藤ひとり|内疚|"真的很抱歉... 我总觉得自己拖累了大家..." 她咬着嘴唇，眼神游离不定。|她偷偷瞄了一眼伊地知虹夏，希望能得到一点安慰。]
-    </plot>
-    <choices>
-    [1|勇敢提出一起去喝咖啡增进感情 ]
-    [2|假装手机响了然后匆匆离开排练室 ]
-    [*隐藏选项触发条件不足，需要更多信任值来开启此选项。*]
-    </choices>
-    <win>
-    <terminal>
-    [终端|系统终端|open|科技风]
-    ***** 万界终端 *****
-    欢迎来到 "孤独摇滚" 世界！
-    输入指令：
-    > help     (查看帮助)
-    > worlds   (查看其他可穿越世界)
-    > jump     (开始新的演出)
-    </terminal>
-    <inventory>
-    [背包|道具箱|open|科技风]
-    [回复药水|3|恢复少量HP]
-    [吉他弦|1|更换吉他弦]
-    [神秘乐谱|1|用途未知]
-    </inventory>
-    <tasks>
-    [任务 | 任务列表 | open | 科技风]
-    [主线任务 | 3/5 | 进行中 | 为即将到来的演出做准备]
-    [支线任务 | 1/3 | 进行中 | 与乐队成员建立更深厚的友谊]
-    [隐藏任务 | 未解锁 | 未解锁 | 找到失踪已久的歌曲手稿]
-    </tasks>
-    <map>
-    [地图|科技风|当前区域地图|20*20]
-    [5,6|排练室|当前]
-    [7,3|咖啡厅|可前往]
-    [10,8|音乐教室|可前往]
-    [15,12|表演舞台|锁定]
-    [2,18|唱片店|可前往]
-    [18,2|地下音乐酒吧|隐藏]
-    </map>
-    <character>
-    [角色状态|角色属性|open|科技风]
-    [后藤ひとり|女性|18岁|153cm|46kg|吉他演奏|独自在家练习吉他|内向、害羞、容易紧张|成为一名优秀的吉他手，克服社交恐惧]
-    [伊地知虹夏|女性|18岁|160cm|48kg|贝斯演奏|喜欢和朋友一起玩|开朗、活泼、热情|成为一名优秀的贝斯手，让乐队更加出色]
-    </character>
-    <relationships>
-    [关系网|社交关系图表|open|科技风]
-    后藤ひとり -> 伊地知虹夏 [友好度+10]
-    伊地知虹夏 -> 山田凉 [未知]
-    喜多郁代 -> 后藤ひとり [关注中...]
-    山田凉 -> 喜多郁代 [友好度未知，但有一种奇妙的氛围...]
-    </relationships>
-    <achievements>
-    [成就|成就展示区|open|科技风]
-    [lv1|初次登台|完成第一次现场演出！]
-    [lv2|克服恐惧|在高压情况下成功社交]
-    </achievements>
-    <skills>
-    [技能|技能树面板|open|科技风]
-    [弹奏技巧|2|增加演出时稳定性]
-    [即兴创作|1|随机应变能力提升]
-    [社交勇气|-10|需要提升！]
-    [音乐制作|0|尚未解锁，但你有潜力！]
-    </skills>
-    <shop>
-    [商店|音像店|closed|科技风]
-    [后摇专辑|30|音乐专辑]
-    [爵士乐教材|30|教材书籍]
-    [限量版吉他拨片|100|乐器装备]
-    [乐队海报|10|装饰品]
-    </shop>
-    <worlds>
-    [世界列表|可选世界列表|closed|科技风|p1]
-    [1|孤独摇滚|4|青春物语，讲述极度怕生少女后藤ひとり加入乐队后的成长故事。]
-    [2|命运石之门|5|科幻悬疑，以时间机器为核心展开的一系列复杂事件。]
-    [3|魔法禁书目录|5|科学与魔法并存，充满战斗与阴谋。]
-    [4|异世界舅舅|4|一位昏迷17年苏醒的大叔，自称曾在异世界冒险过，引发轻松搞笑故事。]
-    [5|JOJO奇妙冒险|6|超越世代、跨越命运、家族荣誉与替身能力者之间的激烈对抗。]
-    </worlds>
-    </win>
-    </mts>`;
-    document.getElementById('llm-output').innerHTML = testData;
-    console.log("成功加载内嵌的测试数据");
-    appendToLog("成功加载内嵌的测试数据");
-    updateUi(testData);
+    const testDataUrl = '/输出格式.txt'; // 使用相对路径以避免跨域问题
+    fetch(testDataUrl)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('llm-output').innerHTML = data;
+            console.log("成功加载测试数据");
+            appendToLog("成功加载测试数据");
+            updateUi(data);
+        })
+        .catch(error => {
+            console.error("加载测试数据失败:", error);
+            appendToLog("加载测试数据失败: " + error);
+        });
 }
-
 // 添加日志信息的方法，用于调试和记录问题
 function appendToLog(message) {
     let logList = document.getElementById('log-list');
@@ -163,7 +71,8 @@ let currentPage = {
 };
 // 通用 [] 格式解析模块
 function parseBracketContent(content) {
-    const items = content.match(/\[(.*?)\]/g) || [];
+    const items = content.match(/\[(.*?)\]/g); // 去掉 || []
+    if (!items) return []; // 如果没有匹配到，返回空数组
     return items.map(item => item.slice(1, -1).split('|'));
 }
 // 通用的点击模块
@@ -193,22 +102,9 @@ function updateUi(content) {
     // 更新系统状态
     updateSystemInfo(content);
     // 更新剧情
-    const plotMatch = content.match(/<plot>([\s\S]*?)<\/plot>/);
-    if (plotMatch) {
-        const plotContent = plotMatch[1];
-        const dialogStyles = parseBracketContent(plotContent.match(/<Dialog_styles>\[(.*?)\]<\/Dialog_styles>/)[1])[0];
-        const dialogs = parseBracketContent(plotContent.replace(/<Dialog_styles>\[(.*?)\]<\/Dialog_styles>/, ''));
-        const plotSection = document.getElementById('plot-section');
-        plotSection.innerHTML = ''; // 清空之前的剧情内容
-        dialogs.forEach(dialog => {
-            const dialogElement = document.createElement('p');
-            dialogElement.classList.add(...dialogStyles); // 应用对话样式
-            dialogElement.textContent = dialog.join(' | ');
-            plotSection.appendChild(dialogElement);
-        });
-    }
+    parsePlotWindow(content);
     // 更新选项
-    const choicesData = parseBracketContent(content.match(/<choices>([\s\S]*?)<\/choices>/)[1]);
+    const choicesData = parseChoices(content);
     const choicesSection = document.getElementById('choices-section');
     choicesSection.innerHTML = ''; // 清空之前的选项
     choicesData.forEach(choice => {
@@ -219,47 +115,7 @@ function updateUi(content) {
         choicesSection.appendChild(button);
     });
     // 更新窗口
-    const winMatch = content.match(/<win>([\s\S]*?)<\/win>/);
-    if (winMatch) {
-        const winContent = winMatch[1];
-        const windowMatches = winContent.match(/<(.*?)>\[(.*?)\]([\s\S]*?)<\/\1>/g);
-        if (windowMatches) {
-            windowMatches.forEach(windowMatch => {
-                const [_, windowTag, windowHeader, windowContent] = windowMatch.match(/<(.*?)>\[(.*?)\]([\s\S]*?)<\/\1>/);
-                const windowData = parseBracketContent(windowHeader)[0];
-                switch (windowTag) {
-                    case 'terminal':
-                        parseTerminalWindow(windowData, windowContent);
-                        break;
-                    case 'inventory':
-                    case 'skills':
-                    case 'shop':
-                        parseListWindow(windowTag, windowData, windowContent);
-                        break;
-                    case 'tasks':
-                        parseTasksWindow(windowData, windowContent);
-                        break;
-                    case 'map':
-                        parseMapWindow(windowData, windowContent);
-                        break;
-                    case 'character':
-                        parseCharacterWindow(windowData, windowContent);
-                        break;
-                    case 'relationships':
-                        parseRelationshipsWindow(windowData, windowContent);
-                        break;
-                    case 'achievements':
-                        parseAchievementsWindow(windowData, windowContent);
-                        break;
-                    case 'worlds':
-                        parseWorldsWindow(windowData, windowContent);
-                        break;
-                    default:
-                        console.warn(`未知窗口类型：${windowTag}`);
-                }
-            });
-        }
-    }
+    parseWin(content);
 }
 // 检查是否为数字或者范围形式的数据，如 "100/100"
 function isNumericValue(value) {
@@ -298,19 +154,14 @@ function updateSystemInfo(content) {
             renderedItem = renderTextWithIcon(key, values[0]);
         }
         // 将渲染结果添加到容器中
-        itemContainer.appendChild(renderedItem);
+        itemContainer.innerHTML = renderedItem; // 确保是 HTML 字符串
         // 将容器添加到系统状态栏中
         sysInfoContainer.appendChild(itemContainer);
     });
 }
 // 渲染普通文本项目（如"时间"）
-function renderTextWithIcon(label, value) {
-    const container = document.createElement('div');
-    container.classList.add('sys-item');
-    container.innerHTML = `
-      <span class='sys-label'>${label}</span>
-      <span class='sys-value'>${value || ''}</span>`;
-    return container;
+function renderTextItem(label) {
+    return `<span class='sys-label'>${label}</span>`; // 返回 HTML 字符串
 }
 // 渲染进度条项目（如 HP/EP）
 function renderProgressBarItem(label, value) {
@@ -361,6 +212,90 @@ function renderMultipleValues(label, values) {
           <strong>${label}:</strong>
           ${subItems}
        </div>`
+}
+// 渲染普通文本项目（如"时间"）
+function renderTextWithIcon(label, value) {
+    return `
+      <span class='sys-label'>${label}</span>
+      <span class='sys-value'>${value || ''}</span>`;
+}
+// 解析选项
+function parseChoices(content) {
+    const choicesMatch = content.match(/<choices>([\s\S]*?)<\/choices>/);
+    if (!choicesMatch || !choicesMatch[1]) {
+        console.warn("未找到选项内容");
+        return []; // 返回空数组，避免后续代码出错
+    }
+    const choicesContent = choicesMatch[1];
+    return parseBracketContent(choicesContent);
+}
+// 解析窗口内容
+function parseWin(content) {
+    const winMatch = content.match(/<win>([\s\S]*?)<\/win>/);
+    if (!winMatch) return;
+    const winContent = winMatch[1];
+    const windowMatches = winContent.match(/<(.*?)>\[(.*?)\]([\s\S]*?)<\/\1>/g);
+    if (windowMatches) {
+        windowMatches.forEach(windowMatch => {
+            const [_, windowTag, windowHeader, windowContent] = windowMatch.match(/<(.*?)>\[(.*?)\]([\s\S]*?)<\/\1>/);
+            const windowData = parseBracketContent(windowHeader)[0];
+            let windowTitle = '未知窗口'; // 默认窗口标题
+            let windowId = `unknown-window-${windowTag}`; // 默认窗口 ID
+            let state = 'open'; // 默认窗口状态
+            let style = '科技风'; // 默认窗口样式
+            if (windowData && windowData.length >= 2) {
+                windowTitle = windowData[0];
+                windowId = windowData[1];
+            }
+            if (windowData && windowData.length >= 3) {
+                state = windowData[2];
+            }
+            if (windowData && windowData.length >= 4) {
+                style = windowData[3];
+            }
+            // 尝试解析窗口内容，如果解析失败，则直接显示原始内容
+            let parsedContent;
+            try {
+                switch (windowTag) {
+                    case 'terminal':
+                        parsedContent = parseTerminalWindow(windowData, windowContent);
+                        break;
+                    case 'inventory':
+                    case 'skills':
+                    case 'shop':
+                        parsedContent = parseListWindow(windowTag, windowData, windowContent);
+                        break;
+                    case 'tasks':
+                        parsedContent = parseTasksWindow(windowData, windowContent);
+                        break;
+                    case 'map':
+                        parsedContent = parseMapWindow(windowData, windowContent);
+                        break;
+                    case 'character':
+                        parsedContent = parseCharacterWindow(windowData, windowContent);
+                        break;
+                    case 'relationships':
+                        parsedContent = parseRelationshipsWindow(windowData, windowContent);
+                        break;
+                    case 'achievements':
+                        parsedContent = parseAchievementsWindow(windowData, windowContent);
+                        break;
+                    case 'worlds':
+                        parsedContent = parseWorldsWindow(windowData, windowContent);
+                        break;
+                    default:
+                        // 对于未知窗口类型，直接显示原始内容
+                        parsedContent = `<pre>${windowContent}</pre>`;
+                        console.warn(`未知窗口类型：${windowTag}，直接显示原始内容`);
+                }
+            } catch (error) {
+                parsedContent = `<pre>${windowContent}</pre>`;
+                console.error(`解析窗口 ${windowTag} 时出错：`, error);
+            }
+            // 使用弹窗基础模板渲染窗口
+            renderWindow(windowId, windowTitle, state, style, parsedContent);
+        });
+    }
 }
 // 解析终端窗口
 function parseTerminalWindow(windowData, windowContent) {
@@ -518,38 +453,40 @@ function initializeWindows() {
 // 窗口拖拽函数
 function dragElement(elmnt) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    let isDragging = false;
     elmnt.querySelector('.window-header').onmousedown = dragMouseDown;
+
     function dragMouseDown(e) {
         e = e || window.event;
         e.preventDefault();
-        // 获取鼠标点击位置
         pos3 = e.clientX;
         pos4 = e.clientY;
+        isDragging = true;
         document.onmouseup = closeDragElement;
         document.onmousemove = elementDrag;
     }
+
     function elementDrag(e) {
         e = e || window.event;
         e.preventDefault();
-        // 计算鼠标移动距离
         pos1 = pos3 - e.clientX;
         pos2 = pos4 - e.clientY;
         pos3 = e.clientX;
         pos4 = e.clientY;
-        // 更新窗口位置
-        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        requestAnimationFrame(() => updateElementPosition(elmnt, pos1, pos2));
     }
+
+    function updateElementPosition(elmnt, dx, dy) {
+        if (isDragging) {
+            elmnt.style.top = (elmnt.offsetTop - dy) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - dx) + "px";
+        }
+    }
+
     function closeDragElement() {
-        // 停止拖拽
+        isDragging = false;
         document.onmouseup = null;
         document.onmousemove = null;
-        // 保存窗口位置
-        const windowId = elmnt.id;
-        setValue(`windowPosition-${windowId}`, {
-            left: elmnt.style.left,
-            top: elmnt.style.top
-        });
     }
 }
 // 窗口置顶函数
@@ -623,6 +560,8 @@ function createWindow(windowId, windowTitle) {
     windowElement.innerHTML = `
       <div class="window-header">
         <span>${windowTitle}</span>
+        <button class="minimize-btn" onclick="toggleMinimize('${windowId}')">—</button>
+        <button class="maximize-btn" onclick="toggleMaximize('${windowId}')">□</button>
         <button class="close-btn" onclick="toggleWindow('${windowId}')">X</button>
       </div>
       <div class="window-content"></div>
@@ -641,36 +580,32 @@ function toggleWindow(windowId) {
         setValue(`windowVisible-${windowId}`, true);
     }
 }
-// 应用窗口主题
-function applyWindowTheme(windowElement, themeName) {
-    const themeClass = presetThemes[themeName] || defaultTheme;
-    windowElement.classList.remove(...Object.values(presetThemes));
-    windowElement.classList.add(themeClass);
-}
-// 创建窗口
-function createWindow(windowId, windowTitle) {
-    const windowElement = document.createElement('div');
-    windowElement.id = windowId;
-    windowElement.classList.add('window');
-    windowElement.innerHTML = `
-      <div class="window-header">
-        <span>${windowTitle}</span>
-        <button class="close-btn" onclick="toggleWindow('${windowId}')">X</button>
-      </div>
-      <div class="window-content"></div>
-    `;
-    document.getElementById('windows').appendChild(windowElement);
-    return windowElement;
-}
-// 切换窗口显示状态
-function toggleWindow(windowId) {
+// 切换窗口最小化状态
+function toggleMinimize(windowId) {
     const windowElement = document.getElementById(windowId);
-    if (windowElement.style.display === 'block') {
-        windowElement.style.display = 'none';
-        setValue(`windowVisible-${windowId}`, false);
+    if (windowElement.classList.contains('minimized')) {
+        windowElement.classList.remove('minimized');
+        windowElement.querySelector('.window-content').style.display = 'block';
     } else {
-        windowElement.style.display = 'block';
-        setValue(`windowVisible-${windowId}`, true);
+        windowElement.classList.add('minimized');
+        windowElement.querySelector('.window-content').style.display = 'none';
+    }
+}
+// 切换窗口最大化状态
+function toggleMaximize(windowId) {
+    const windowElement = document.getElementById(windowId);
+    if (windowElement.classList.contains('maximized')) {
+        windowElement.classList.remove('maximized');
+        windowElement.style.width = '';
+        windowElement.style.height = '';
+        windowElement.style.left = '';
+        windowElement.style.top = '';
+    } else {
+        windowElement.classList.add('maximized');
+        windowElement.style.width = '100vw';
+        windowElement.style.height = '100vh';
+        windowElement.style.left = '0';
+        windowElement.style.top = '0';
     }
 }
 // 应用窗口主题
@@ -678,4 +613,131 @@ function applyWindowTheme(windowElement, themeName) {
     const themeClass = presetThemes[themeName] || defaultTheme;
     windowElement.classList.remove(...Object.values(presetThemes));
     windowElement.classList.add(themeClass);
+}
+// 解析剧情窗口
+function parsePlotWindow(content) {
+    const plotMatch = content.match(/<plot>([\s\S]*?)<\/plot>/);
+    if (!plotMatch || !plotMatch[1]) {
+        console.warn("未找到剧情内容");
+        return;
+    }
+    const plotContent = plotMatch[1];
+    try {
+        // 提取对话样式
+        const dialogStylesMatch = plotContent.match(/<Dialog_styles>\[(.*?)\]<\/Dialog_styles>/);
+        if (!dialogStylesMatch || !dialogStylesMatch[1]) {
+            console.warn("无法解析对话样式");
+            return;
+        }
+        // 提取对话内容，去掉对话样式部分
+        const dialogsContent = plotContent.replace(/<Dialog_styles>\[(.*?)\]<\/Dialog_styles>/, '').trim();
+        const dialogs = parseBracketContent(dialogsContent);
+        if (!dialogs || dialogs.length === 0) {
+            console.warn("对话数据为空");
+            return;
+        }
+        let currentDialogIndex = 0;
+        const plotSection = document.getElementById('plot-section');
+        function renderDialog(index) {
+            if (index < 0 || index >= dialogs.length) return;
+            const dialog = dialogs[index];
+            plotSection.innerHTML = `
+                <div class="dialog" style="text-align: center;">
+                    <div>${dialog.join(' | ')}</div>
+                    <div class="dialog-controls">
+                        <button onclick="navigateDialog(-1)">上一个</button>
+                        <button onclick="navigateDialog(1)">下一个</button>
+                    </div>
+                </div>`;
+        }
+         function navigateDialog(direction) {
+             currentDialogIndex += direction;
+             currentDialogIndex = Math.max(0, Math.min(currentDialogIndex, dialogs.length - 1));
+             renderDialog(currentDialogIndex);
+         }
+         renderDialog(currentDialogIndex);
+     } catch(error){
+       console.error("出错啦", error);
+     }
+}
+// 解析地图窗口
+function parseMapWindow(windowData, windowContent) {
+    const [, windowTitle, windowId, state, style, mapSize] = windowData;
+    const [width, height] = mapSize.split('*').map(Number);
+    const locations = parseBracketContent(windowContent);
+    let mapHtml = `<table>`;
+    for (let y = 0; y < height; y++) {
+        mapHtml += `<tr>`;
+        for (let x = 0; x < width; x++) {
+            let locationData = locations.find(([locX, locY]) => x === Number(locX) && y === Number(locY));
+            let locationClass = '隐藏';
+            let locationText = '';
+            if (locationData) {
+                locationText = locationData[1];
+                locationClass = locationData[2];
+            }
+            mapHtml += `<td class="${locationClass}" data-x="${x}" data-y="${y}">${locationText}</td>`;
+        }
+        mapHtml += `</tr>`;
+    }
+    mapHtml += `</table>`;
+    renderWindow(windowId, windowTitle, state, style, mapHtml);
+    // 添加地图交互事件（例如点击可前往地点）
+    const mapCells = document.querySelectorAll(`#${windowId} .可前往`);
+    mapCells.forEach(cell => {
+        cell.addEventListener('click', () => {
+            // TODO: 实现地图交互逻辑，例如移动到目标地点
+            console.log(`点击了地图上的可前往地点：${cell.dataset.x}, ${cell.dataset.y}`);
+        });
+    });
+}
+// 解析关系网窗口
+function parseRelationshipsWindow(windowData, windowContent) {
+    const [, windowTitle, windowId, state, style] = windowData;
+    const relationships = parseBracketContent(windowContent.replace(/\[(.*?)\]/, '')); // 移除第一个 [] 内容
+    const relationshipList = `
+      <ul>
+        ${relationships.map(relationship => `<li>${relationship.join(' -> ')} ${relationship[2]}</li>`).join('')}
+      </ul>
+    `;
+    renderWindow(windowId, windowTitle, state, style, relationshipList);
+}
+// 解析成就窗口
+function parseAchievementsWindow(windowData, windowContent) {
+    const [, windowTitle, windowId, state, style] = windowData;
+    const achievementsData = parseBracketContent(windowContent);
+    const achievementList = `
+      <ul>
+        ${achievementsData.map(achievement => `
+          <li class="achievement achievement-${achievement[0]}">
+            ${achievement[1]} - ${achievement[2]}
+          </li>
+        `).join('')}
+      </ul>
+    `;
+    renderWindow(windowId, windowTitle, state, style, achievementList);
+}
+// 解析世界列表窗口
+function parseWorldsWindow(windowData, windowContent) {
+    const [, windowTitle, windowId, state, style, pageNumber] = windowData;
+    // TODO: 实现分页逻辑
+    const worlds = parseBracketContent(windowContent);
+    const worldList = `
+      <ul>
+        ${worlds.map(world => `<li>${world.join(' | ')}</li>`).join('')}
+      </ul>
+    `;
+    renderWindow(windowId, windowTitle, state, style, worldList);
+}
+// 解析商店窗口
+function parseShopWindow(windowData, windowContent) {
+    const [, windowTitle, windowId, state, style] = windowData;
+    // TODO: 实现商店逻辑
+    const items = parseBracketContent(windowContent);
+    const shopList = `
+      <ul>
+        ${items.map(item => `<li>${item.join(' | ')}</li>`).join('')}
+      </ul>
+    `;
+    renderWindow(windowId, windowTitle, state, style, shopList);
 }
